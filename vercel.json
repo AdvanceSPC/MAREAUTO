@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "@vercel/node"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/vehiculo/(.+)",
+      "dest": "/api/vehiculo/[placa].js"
+    },
+    {
+      "src": "/api/taller/(.+)",
+      "dest": "/api/taller/[ciudad].js"
+    }
+  ],
+  "env": {
+    "DB_HOST": "@db-host",
+    "DB_USER": "@db-user", 
+    "DB_PASSWORD": "@db-password",
+    "DB_DATABASE": "@db-database"
+  }
+}
