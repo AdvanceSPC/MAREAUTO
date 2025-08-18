@@ -1,18 +1,19 @@
 {
   "version": 2,
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "@vercel/node"
+  "builds": [
+    {
+      "src": "api/vehiculo/placa.js",
+      "use": "@vercel/node"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/api/vehiculo/(.+)",
-      "dest": "/api/vehiculo/[placa].js"
+      "dest": "/api/vehiculo/placa.js"
     },
     {
       "src": "/api/taller/(.+)",
-      "dest": "/api/taller/[ciudad].js"
+      "dest": "/api/taller/ciudad.js"
     }
   ]
 }
