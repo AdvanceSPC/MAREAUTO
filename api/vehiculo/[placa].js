@@ -134,12 +134,18 @@ export default async function handler(req, res) {
 
         const [talleresMarca] = await connection.execute(
             `SELECT * FROM TALLERES 
-       WHERE (MARCA LIKE ? OR MARCA = 'TODAS' OR MULTIMARCA = 'SI') 
-       AND ESTADO = ? AND PAIS = ?
-       ORDER BY 
-         CASE WHEN NOMBRE_CIUDAD = ? THEN 1 ELSE 2 END,
-         NRO_MAX_CITAS DESC`,
-            [`%${vehiculo.MARCA}%`, 'A', paisVehiculo, ciudadVehiculo]
+            WHERE (MARCA LIKE ? OR MARCA = 'TODAS' OR MULTIMARCA = 'SI') 
+            AND ESTADO = ? AND PAIS = ?
+            ORDER BY 
+            CASE 
+                WHEN MARCA LIKE ? THEN 1
+                WHEN CONCESIONARIO = 'SI' THEN 2
+                WHEN MULTIMARCA = 'SI' THEN 3
+                ELSE 4
+            END,    
+            CASE WHEN NOMBRE_CIUDAD = ? THEN 1 ELSE 2 END,
+            NRO_MAX_CITAS DESC`,
+            [`%${vehiculo.MARCA}%`, 'A', paisVehiculo, `%${vehiculo.MARCA}%`, ciudadVehiculo]
         );
 
         respuesta.recomendaciones.talleresPorMarca = talleresMarca.slice(0, 5).map(taller => ({
