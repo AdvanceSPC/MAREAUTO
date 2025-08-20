@@ -91,8 +91,7 @@ export default async function handler(req, res) {
                 analisisMantenimiento: {
                     kmRecorridosDesdeUltimoMtto: kmRecorridos,
                     proximoMantenimientoEn: proximoMantenimiento,
-                    kmFaltantesParaMtto: kmFaltantes,
-                    necesitaMantenimiento: necesitaMantenimiento
+                    kmFaltantesParaMtto: kmFaltantes
                 }
             },
             talleres: {
